@@ -1,4 +1,10 @@
-// Command line interface for extracting timestamps from MTS video files.
+/*
+Command line interface for extracting timestamps from MTS video files.
+
+Usage:
+	
+	extract_mts_timestamp 00134.MTS ["2006-01-02 15:04:05"]
+*/
 package main
 
 import (
