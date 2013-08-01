@@ -1,4 +1,5 @@
-// TODO: Package doc
+// Extract timestamp from MTS video files.
+// Tested with Sony HDR-CX115.
 package mtstimestamp
 
 import (
