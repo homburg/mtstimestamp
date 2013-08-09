@@ -11,14 +11,14 @@ import (
 	"os"
 	"fmt"
 	"github.com/homburg/mtstimestamp"
-	"regexp"
+	"path/filepath"
 )
 
 // "Return" to filename wo ext to stdout
 // if a valid timestamp cannot be found
 func writeFilenameWoExtAndExit (filename string) {
-	re := regexp.MustCompile(`\.[^.]*$`)
-	filenameWoExt := re.ReplaceAll([]byte(filename), []byte(""))
+	extension := filepath.Ext(filename)
+	filenameWoExt := filename[0:len(filename)-len(extension)]
 	fmt.Printf(string(filenameWoExt))
 	os.Exit(1)
 }
