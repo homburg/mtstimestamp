@@ -11,7 +11,17 @@ import (
 	"os"
 	"fmt"
 	"github.com/homburg/mtstimestamp"
+	"regexp"
 )
+
+// "Return" to filename wo ext to stdout
+// if a valid timestamp cannot be found
+func writeFilenameWoExtAndExit (filename string) {
+	re := regexp.MustCompile(`\.[^.]*$`)
+	filenameWoExt := re.ReplaceAll([]byte(filename), []byte(""))
+	fmt.Printf(string(filenameWoExt))
+	os.Exit(1)
+}
 
 func main() {
 	filename := ""
@@ -30,20 +40,20 @@ func main() {
 	f, err := os.Open(filename)
 
 	if nil != err {
-		fmt.Println(err)
-		os.Exit(1)
+		fmt.Fprint(os.Stderr, err)
+		writeFilenameWoExtAndExit(filename)
 	}
 
 	ts, err := mtstimestamp.Extract(f)
 
 	if nil != err {
-		fmt.Println(err)
-		os.Exit(1)
+		fmt.Fprintln(os.Stderr, err)
+		writeFilenameWoExtAndExit(filename)
 	}
 
 	if nil == ts {
-		fmt.Println("Could not get timestamp")
-		os.Exit(1)
+		fmt.Fprintln(os.Stderr, "Could not get timestamp, returned original filename.")
+		writeFilenameWoExtAndExit(filename)
 	}
 
 	fmt.Printf(ts.Format(format))
