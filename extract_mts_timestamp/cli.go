@@ -1,5 +1,6 @@
 /*
 Command line interface for extracting timestamps from MTS video files.
+If a timestamp is not found, the filename (minus extension) is printed.
 
 Usage:
 	
